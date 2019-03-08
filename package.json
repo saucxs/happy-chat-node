@@ -1,0 +1,35 @@
+{
+  "name": "happy-chat-node",
+  "version": "1.0.0",
+  "description": "happy-chat-node",
+  "private": true,
+  "scripts": {
+    "start": "gulp start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saucxs/happy-chat-node.git"
+  },
+  "author": "saucxs <saucxs@163.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saucxs/happy-chat-node/issues"
+  },
+  "homepage": "https://github.com/saucxs/happy-chat-node#readme",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-nodemon": "^2.4.2"
+  },
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa2-cors": "^2.0.6",
+    "md5": "^2.2.1",
+    "mysql": "^2.16.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}
