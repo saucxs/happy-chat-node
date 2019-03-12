@@ -13,7 +13,6 @@ module.exports = async (ctx, next) => {
         body: date,
         json: true // Automatically stringifies the body to JSON
     };
-
     const response = await request(options);
     console.log(response);
     ctx.body = {

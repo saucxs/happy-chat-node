@@ -6,7 +6,7 @@ const app = new Koa();
 
 const server = require("http").createServer(app.callback());
 
-server.listen(3001);
+server.listen(3000);
 
 app.use(cors());
 
@@ -14,4 +14,4 @@ app.use(bodyParser());
 
 app.use(router.routes()).use(router.allowedMethods());
 
-console.log("服务器已启动,端口3001");
+console.log("服务器已启动,端口3000");
