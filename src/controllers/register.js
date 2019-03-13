@@ -9,18 +9,18 @@ module.exports = async (ctx, next) => {
     }
     await userModel.findDataByName(user.name).then(res => {
         console.log(res, '结果')
-        if(result.length) {
+        if(res.length) {
             ctx.body = {
                 success: false,
                 message: "用户名已经存在"
             }
         }else{
             ctx.body = {
-                success: false,
+                success: true,
                 message: "注册成功"
             };
             userModel.insertUser([
-                ctx.request.body,name,
+                ctx.request.body.name,
                 md5(ctx.request.body.password)
             ])
         }

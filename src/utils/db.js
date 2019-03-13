@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const dbConfig = require('../config').db;
-const mysqlpool = mysql.createPool({
+const mysqlPool = mysql.createPool({
     user: dbConfig.user,
     password: dbConfig.password,
     database: dbConfig.database,
@@ -9,7 +9,7 @@ const mysqlpool = mysql.createPool({
 
 let query = function (sql, values) {
     return new Promise((resolve => {
-        mysqlpool.getConnection(function (err, connection) {
+        mysqlPool.getConnection(function (err, connection) {
             if(err){
                 resolve(err);
             }else{
@@ -26,6 +26,6 @@ let query = function (sql, values) {
     }))
 }
 
-export.exports = {
+module.exports = {
     query
 }
