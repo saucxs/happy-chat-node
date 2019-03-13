@@ -2,7 +2,7 @@ const {query} = require('../utils/db');
 
 /*注册用户*/
 let insertUser= function (value) {
-    let sql = "insert into user_info(name, password) values(?,?)"
+    let sql = "insert into user_info(name, password, email) values(?,?,?)"
     return query(sql, value)
 }
 

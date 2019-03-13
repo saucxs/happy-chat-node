@@ -4,7 +4,7 @@ const mysqlPool = mysql.createPool({
     user: dbConfig.user,
     password: dbConfig.password,
     database: dbConfig.database,
-    host: dbConfig.host
+    host: dbConfig.host,
 });
 
 let query = function (sql, values) {
