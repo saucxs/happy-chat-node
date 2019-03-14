@@ -8,10 +8,22 @@ const db = {
     salt: 'happy-chat'
 }
 
+const mailer = {
+    host:"smtp.qq.com",
+    port: 465,
+    domains:'["qq.com"]',
+    account:'184866445@qq.com',
+    pass: "",
+    from: "happy-chat<184866445@qq.com>",
+    route_on: true,
+    encoding: "utf-8"
+}
+
 const secret = 'airchat-sec'
 
 module.exports = {
     db,
+    mailer,
 	baseApi,
 	secret
 }
