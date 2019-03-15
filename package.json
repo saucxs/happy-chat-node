@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "async": "0.2.9",
+    "jsonwebtoken": "^8.5.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
@@ -32,6 +33,7 @@
     "mysql": "^2.16.0",
     "nodemailer": "^5.1.1",
     "request": "^2.88.0",
-    "request-promise": "^4.2.4"
+    "request-promise": "^4.2.4",
+    "socket.io": "^2.2.0"
   }
 }

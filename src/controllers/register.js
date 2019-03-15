@@ -1,11 +1,11 @@
 let userModel= require("../models/userInfo");
-let md5 = require("md5");
-let nodemailer = require("nodemailer");
+const md5 = require("md5");
+const nodemailer = require("nodemailer");
 const dbConfig = require('../config').db;
 const mailer = require('../config').mailer;
-const {randomString} = require('../utils/common');
+const {randomString, toNomalTime} = require('../utils/common');
 
-module.exports = async (ctx, next) => {
+let unActivate = async (ctx, next) => {
     console.log("register");
     let user = {
         name: ctx.request.body.name,
@@ -21,13 +21,13 @@ module.exports = async (ctx, next) => {
                 message: "用户名已经存在"
             }
         }else{
-            console.log(user, '--------------------')
+            let code = randomString(128);
             userModel.insertUser([
                 user.name,
                 md5(salt + user.password + salt),
                 user.email,
                 false,
-                randomString(128)
+                code
             ]);
             ctx.body = {
                 success: true,
@@ -70,4 +70,39 @@ module.exports = async (ctx, next) => {
 
         }
     })
+}
+
+let activate = async (ctx, next) => {
+    let code = ctx.query.code;
+    await userModel.findDataByActivateCode(code).then(res => {
+        if(res.length) {
+            let user = res[0]
+            if (user.activate) {
+                ctx.body = {
+                    success: false,
+                    message: "该邮箱"+ user.email +"\r在"+ user.activateDate +"已经激活"
+                }
+            } else {
+                let activateDate = toNomalTime(new Date().getTime())
+                userModel.activateUser(true, activateDate, user.email).then(res => {
+                    if (res) {
+                        ctx.body = {
+                            success: true,
+                            message: "恭喜你，"+ user.email +"激活成功"
+                        }
+                    }
+                })
+            }
+        } else {
+            ctx.body = {
+                success: false,
+                message: "请检查激活码是否正确"
+            }
+        }
+    })
+}
+
+module.exports = {
+    unActivate,
+    activate
 }
