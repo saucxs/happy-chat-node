@@ -10,6 +10,7 @@ module.exports = async (ctx, next) => {
         const userToken = jwt.verify(token, secret)
         ctx.user_id = userToken.id;
         ctx.name = userToken.name;
+        await next()
     } catch (err){
         ctx.throw(401, err)
     }

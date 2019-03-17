@@ -15,6 +15,7 @@ router.get('/activate', register.activate) //注册-激活
 router.post('/login', login) //登陆
 router.get('/message', verify, message) // 获取首页列表信息
 router.get('/private_detail', verify, privateChat.getprivateDetail) // 获取私聊相关内容
+router.post('/private_save_msg', verify, privateChat.savePrivateMsg) //保存私聊信息
 
 console.log("router");
 
