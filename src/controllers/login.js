@@ -14,7 +14,7 @@ module.exports = async (ctx, next) => {
         };
         return ;
     }
-    console.log(name, password, '------')
+
     const alreadyRow = await userModel.findDataByName(name);
     const res = JSON.parse(JSON.stringify(alreadyRow));
     if (res.length > 0) {
