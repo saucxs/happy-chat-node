@@ -19,7 +19,7 @@ const mailer = {
     encoding: "utf-8"
 }
 
-const secret = 'happychat-sec'
+const secret = 'happy-chat-sec'
 
 module.exports = {
     db,

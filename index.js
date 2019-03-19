@@ -25,11 +25,11 @@ io.on("connection", socket => {
     socket.on("login", async userId => {
         await socketModel.saveUserSocketId(userId, socketId);
     });
-      // 更新soketId
+    // 更新soketId
     socket.on("update", async userId => {
         await socketModel.saveUserSocketId(userId, socketId);
     });
-        //私聊
+    //私聊
     socket.on("sendPrivateMsg", async data => {
         const arr = await socketModel.getUserSocketId(data.to_user);
         const RowDataPacket = arr[0];
