@@ -9,7 +9,7 @@ let getnewFriends = function(to_user) {
 
 //添加我的新好友通知
 let insertNewFriends = function(arr) {
-    console.log('insertNewFriendsmol22222')
+    console.log(arr, 'insertNewFriendsmol22222')
   const _sql =
     "insert into new_friends(from_user,to_user,content,time,status) values(?,?,?,?,?);";
   return query(_sql, arr);
