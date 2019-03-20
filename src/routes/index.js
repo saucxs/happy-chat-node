@@ -29,9 +29,9 @@ router.post('/be_friend', verify, userInfo.agreeBeFriend) // 加为好友
 router.delete('/del_friend', verify, userInfo.delFriend) // 删除好友
 router.put('/update_newfriends', verify, newFriends.updateNewFriends) // 更新 新好友状态  是否已被同意加好友
 router.put('/editor_remark', verify, userInfo.editorRemark) // 修改备注
-router.put('/editor_remark', verify, userInfo.editorRemark) // 修改备注
 router.post('/create_group', verify, groupInfo.createGroup) // 建群
 router.get('/get_group_info', verify, groupChat.getGroupInfo) //获取群资料
+
 
 console.log("router");
 
