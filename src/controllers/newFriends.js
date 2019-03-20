@@ -18,6 +18,23 @@ let getnewFriends = async (ctx, next) => {
 };
 
 /**
+ *  获取好友列表
+ * @param user_id  我的id
+ * @return
+ */
+
+let getFriends = async (ctx, next) => {
+    const RowDataPacket = await newFriendsModel.getFriends(ctx.user_id),
+        alreadyFriends = JSON.parse(JSON.stringify(RowDataPacket));
+    ctx.body = {
+        success: true,
+        data: {
+            alreadyFriends: alreadyFriends
+        }
+    };
+};
+
+/**
  *  添加我的新好友通知
  * @param
  * @return
@@ -53,6 +70,7 @@ let updateNewFriends = async (ctx, next) => {
 
 module.exports = {
 	getnewFriends,
+    getFriends,
 	insertNewFriends,
 	updateNewFriends
 };
