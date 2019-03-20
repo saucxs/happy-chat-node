@@ -50,6 +50,19 @@ let addAsFriend = (user_id, other_user_id, time) => {
     return query(_sql, [user_id, other_user_id, time]);
 }
 
+// 删除好友
+let delFriend = (user_id, other_user_id) => {
+    const _sql =
+        'DELETE FROM  user_user_relation WHERE user_id = ? AND other_user_id = ?'
+    return query(_sql, [user_id, other_user_id]);
+}
+
+//修改备注
+let editorRemark = (remark, user_id, other_user_id) => {
+    const _sql =
+        'UPDATE  user_user_relation  SET remark = ?  WHERE  user_id = ? AND other_user_id = ? '
+    return query(_sql, [remark, user_id, other_user_id]);
+}
 
 
 
@@ -61,5 +74,7 @@ module.exports = {
     findUIByName,
     getUserInfo,
     isFriend,
-    addAsFriend
+    addAsFriend,
+    editorRemark,
+    delFriend
 }

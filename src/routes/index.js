@@ -23,8 +23,11 @@ router.get('/user_info', verify, userInfo.getUserInfo) // 获取用户资料
 router.get('/is_friend', verify, userInfo.isFriend) // 是否是好友
 router.post('/insert_newfriends', verify, newFriends.insertNewFriends) // 添加我的新好友通知
 router.get('/get_newfriends', verify, newFriends.getnewFriends) // 获取新朋友通知
+router.get('/get_friends', verify, newFriends.getFriends) // 获取朋友通知
 router.post('/be_friend', verify, userInfo.agreeBeFriend) // 加为好友
+router.delete('/del_friend', verify, userInfo.delFriend) // 删除好友
 router.put('/update_newfriends', verify, newFriends.updateNewFriends) // 更新 新好友状态  是否已被同意加好友
+router.put('/editor_remark', verify, userInfo.editorRemark) // 修改备注
 
 console.log("router");
 
