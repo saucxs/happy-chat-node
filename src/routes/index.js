@@ -9,6 +9,7 @@ const privateChat = require('../controllers/privateChat.js');
 const userInfo = require('../controllers/userInfo.js');
 const newFriends = require('../controllers/newFriends.js');
 const groupInfo = require('../controllers/groupInfo.js');
+const groupChat = require('../controllers/groupChat.js');
 
 router.prefix(`/${baseApi}`)
 
@@ -23,7 +24,7 @@ router.get('/find_people', verify, userInfo.findUIByName) //通过用户名搜�
 router.get('/user_info', verify, userInfo.getUserInfo) // 获取用户资料
 router.get('/is_friend', verify, userInfo.isFriend) // 是否是好友
 router.post('/insert_newfriends', verify, newFriends.insertNewFriends) // 添加我的新好友通知
-router.get('/get_newfriends', verify, newFriends.getnewFriends) // 获取新朋友通知
+router.get('/get_newfriends', verify, newFriends.getNewFriends) // 获取新朋友通知
 router.get('/get_friends', verify, newFriends.getFriends) // 获取朋友通知
 router.post('/be_friend', verify, userInfo.agreeBeFriend) // 加为好友
 router.delete('/del_friend', verify, userInfo.delFriend) // 删除好友

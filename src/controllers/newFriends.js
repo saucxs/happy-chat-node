@@ -6,9 +6,10 @@ const newFriendsModel = require("../models/newFriends");
  * @return
  */
 
-let getnewFriends = async (ctx, next) => {
-	const RowDataPacket = await newFriendsModel.getnewFriends(ctx.user_id),
+let getNewFriends = async (ctx, next) => {
+	const RowDataPacket = await newFriendsModel.getnewFriends(ctx.user_id, 1),
 		newFriends = JSON.parse(JSON.stringify(RowDataPacket));
+    console.log(RowDataPacket, '77777777777777777777777777777777777777777777777')
 	ctx.body = {
 		success: true,
 		data: {
@@ -24,8 +25,9 @@ let getnewFriends = async (ctx, next) => {
  */
 
 let getFriends = async (ctx, next) => {
-    const RowDataPacket = await newFriendsModel.getFriends(ctx.user_id),
+    const RowDataPacket = await newFriendsModel.getFriends(ctx.user_id, 1),
         alreadyFriends = JSON.parse(JSON.stringify(RowDataPacket));
+	console.log(RowDataPacket, '888888888888888888888888888888888888888888888')
     ctx.body = {
         success: true,
         data: {
@@ -34,6 +36,7 @@ let getFriends = async (ctx, next) => {
     };
 };
 
+
 /**
  *  添加我的新好友通知
  * @param
@@ -41,11 +44,13 @@ let getFriends = async (ctx, next) => {
  */
 
 let insertNewFriends = async (ctx, next) => {
-	const arr = [ctx.user_id, ctx.request.body.to_user, ctx.request.body.content, ctx.request.body.time, ctx.request.body.status];
+	const arr = [ctx.user_id, ctx.request.body.to_user, ctx.request.body.content, ctx.request.body.time, ctx.request.body.status, 1];
 	await newFriendsModel.insertNewFriends(arr).then(result => {
-		ctx.body = {
-			success: true
-		};
+		if(result){
+            ctx.body = {
+                success: true
+            };
+		}
 	}).catch(err => {
 		console.log(err);
 	});
@@ -69,7 +74,7 @@ let updateNewFriends = async (ctx, next) => {
 };
 
 module.exports = {
-	getnewFriends,
+	getNewFriends,
     getFriends,
 	insertNewFriends,
 	updateNewFriends

@@ -1,4 +1,5 @@
 const userModel = require("../models/userInfo");
+const newFriendsModel = require("../models/newFriends");
 const {toNomalTime} = require('../utils/common');
 
 /**
@@ -45,11 +46,13 @@ let findUIByName = async (ctx, next) => {
 let isFriend = async (ctx, next) => {
 	const RowDataPacket1 = await userModel.isFriend(
 			ctx.user_id,
-			ctx.query.other_user_id
+			ctx.query.other_user_id,
+			1
 		),
 		RowDataPacket2 = await userModel.isFriend(
 			ctx.query.other_user_id,
-			ctx.user_id
+			ctx.user_id,
+			1
 		),
 		isMyFriend = JSON.parse(JSON.stringify(RowDataPacket1)),
 		isHisFriend = JSON.parse(JSON.stringify(RowDataPacket2));
@@ -72,11 +75,13 @@ let isFriend = async (ctx, next) => {
 let agreeBeFriend = async (ctx, next) => {
 	const RowDataPacket1 = await userModel.isFriend(
 			ctx.user_id,
-			ctx.request.body.other_user_id
+			ctx.request.body.other_user_id,
+			1
 		),
 		RowDataPacket2 = await userModel.isFriend(
 			ctx.request.body.other_user_id,
-			ctx.user_id
+			ctx.user_id,
+			1
 		),
 		isMyFriend = JSON.parse(JSON.stringify(RowDataPacket1)),
 		isHisFriend = JSON.parse(JSON.stringify(RowDataPacket2));
@@ -87,7 +92,8 @@ let agreeBeFriend = async (ctx, next) => {
 		await userModel.addAsFriend(
 			ctx.user_id,
 			ctx.request.body.other_user_id,
-			ctx.request.body.time
+			ctx.request.body.time,
+			1
 		);
 	}
 	//本机用户变成ta的朋友
@@ -95,7 +101,8 @@ let agreeBeFriend = async (ctx, next) => {
 		await userModel.addAsFriend(
 			ctx.request.body.other_user_id,
 			ctx.user_id,
-			ctx.request.body.time
+			ctx.request.body.time,
+			1
 		);
 	}
 	ctx.body = {
@@ -111,13 +118,23 @@ let agreeBeFriend = async (ctx, next) => {
  * @return
  */
 let delFriend = async (ctx, next) => {
-	await userModel.delFriend(ctx.user_id, ctx.query.other_user_id)
+	console.log(ctx.user_id, ctx.query.other_user_id, '1111111111111111111111111111111111111111111')
+	await userModel.delFriend(0, ctx.user_id, ctx.query.other_user_id)
 		.then(result => {
 			if (result) {
-				ctx.body = {
-					success: true
-				};
-				console.log("删除好友成功");
+				/*删除请求表的请求*/
+                newFriendsModel.deleteFriends(0, ctx.user_id, ctx.query.other_user_id)
+                    .then(res => {
+                        if(res){
+                            ctx.body = {
+                                success: true
+                            };
+                            console.log("删除好友成功");
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
 			}
 		})
 		.catch(err => {
@@ -162,7 +179,8 @@ let editorRemark = async (ctx, next) => {
 	await userModel.editorRemark(
 			ctx.request.body.remark,
 			ctx.user_id,
-			ctx.request.body.other_user_id
+			ctx.request.body.other_user_id,
+			1
 		).then(result => {
 			console.log("editorRemark", result);
 			if (result) {
@@ -176,6 +194,7 @@ let editorRemark = async (ctx, next) => {
 			console.log(err);
 		});
 };
+
 
 /**
  * 修改备注
