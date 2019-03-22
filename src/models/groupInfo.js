@@ -27,10 +27,17 @@ let exitGroup = (user_id, group_id) => {
 	return query(_sql, [user_id, group_id])
 }
 
+// 获取群列表
+let getGroups = function(user_id) {
+    const _sql =
+        "SELECT gur.group_id , gur.user_id , g.group_name , g.group_notice , g.group_avator, g.group_creater , g.creater_time FROM (select * from group_user_relation order by id desc) as gur  inner join  group_info as g on gur.group_id = g.group_id  WHERE  gur.user_id = ?";
+    return query(_sql, [user_id]);
+}
 
 module.exports = {
 	joinGroup,
 	isInGroup,
 	createGroup,
-	exitGroup
+	exitGroup,
+    getGroups
 };

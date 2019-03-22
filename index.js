@@ -1,10 +1,13 @@
 const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
 const cors = require("koa2-cors");
+// const history = require("connect-history-api-fallback");
 const router = require("./src/routes/index");
 const { query } = require("./src/utils/db");
 const socketModel = require("./src/models/soketHander");
 const app = new Koa();
+
+// app.use(history());
 
 const server = require("http").createServer(app.callback());
 const io = require("socket.io")(server);

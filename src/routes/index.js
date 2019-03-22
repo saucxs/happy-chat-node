@@ -14,8 +14,8 @@ const groupChat = require('../controllers/groupChat.js');
 router.prefix(`/${baseApi}`)
 
 router.post('/register', register.unActivate) //注册-未激活
-router.get('/robot',verify, robot) //机器人交流
 router.get('/activate', register.activate) //注册-激活
+router.get('/robot',verify, robot) //机器人交流
 router.post('/login', login) //登陆
 router.get('/message', verify, message) // 获取首页列表信息
 router.get('/private_detail', verify, privateChat.getprivateDetail) // 获取私聊相关内容
@@ -25,14 +25,20 @@ router.get('/user_info', verify, userInfo.getUserInfo) // 获取用户资料
 router.get('/is_friend', verify, userInfo.isFriend) // 是否是好友
 router.post('/insert_newfriends', verify, newFriends.insertNewFriends) // 添加我的新好友通知
 router.get('/get_newfriends', verify, newFriends.getNewFriends) // 获取新朋友通知
-router.get('/get_friends', verify, newFriends.getFriends) // 获取朋友通知
+router.get('/get_friends', verify, newFriends.getFriends) // 获取朋友列表
 router.post('/be_friend', verify, userInfo.agreeBeFriend) // 加为好友
 router.delete('/del_friend', verify, userInfo.delFriend) // 删除好友
 router.put('/update_newfriends', verify, newFriends.updateNewFriends) // 更新 新好友状态  是否已被同意加好友
 router.put('/editor_remark', verify, userInfo.editorRemark) // 修改备注
 router.post('/create_group', verify, groupInfo.createGroup) // 建群
+router.post('/join_group', verify, groupInfo.joinGroup) // 加入群
+router.get('/group_chat', verify, groupChat.getGroupDetail) //获取群相关内容
+router.post('/group_chat_msg', verify, groupChat.saveGroupMsg) // 保存群信息
+router.post('/group_chat_relation', verify, groupChat.addGroupUserRelation) //群添加成员并返回群成员
 router.get('/get_group_info', verify, groupChat.getGroupInfo) //获取群资料
-
+router.get('/is_in_group', verify, groupInfo.isInGroup) // 看某个用户是否在某个群中(根据返回的数组长度是不是为零就知道)
+router.delete('/exit_group', verify, groupInfo.exitGroup) // 退群
+router.get('/get_groups', verify, groupInfo.getGroups) // 获取朋友列表
 
 console.log("router");
 

@@ -71,9 +71,29 @@ let exitGroup = async (ctx, next) => {
 	console.log('退群成功')
 };
 
+/**
+ *  获取群列表
+ * @param user_id  我的id
+ * @return
+ */
+
+let getGroups = async (ctx, next) => {
+	console.log(ctx.user_id, 'eqwewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
+    const RowDataPacket = await groupInfo.getGroups(ctx.user_id),
+        alreadyGroups = JSON.parse(JSON.stringify(RowDataPacket));
+    console.log(RowDataPacket, '777777777777777777777777777777777777777777')
+    ctx.body = {
+        success: true,
+        data: {
+            alreadyGroups: alreadyGroups
+        }
+    };
+};
+
 module.exports = {
 	joinGroup,
 	isInGroup,
 	createGroup,
-	exitGroup
+	exitGroup,
+    getGroups
 };

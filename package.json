@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "async": "0.2.9",
+    "connect-history-api-fallback": "^1.6.0",
     "jsonwebtoken": "^8.5.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",

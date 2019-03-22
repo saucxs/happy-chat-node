@@ -21,7 +21,7 @@ let unActivate = async (ctx, next) => {
                 message: "用户名已经存在"
             }
         }else{
-            let code = randomString(128);
+            let code =  md5(salt + randomString(128) +salt);
             userModel.insertUser([
                 user.name,
                 md5(salt + user.password + salt),
@@ -33,11 +33,12 @@ let unActivate = async (ctx, next) => {
                 success: true,
                 message: "注册成功，请前往注册邮箱进行激活"
             };
+            let activateUrl = "http://chat.chengxinsong.cn/#/activate/" + code;
             /*sendeamil*/
             let html = '<div style="width:800px;font-size:14px;margin:0 auto;border:1px solid #eee;box-shadow: 0 0 16px 0 rgba(85, 121, 238, 0.39);background: #eee;">' +
                 '<p>亲爱的'+ user.name +':</p>' +
                 '<p>用户激活邮件，点击下方的连接进行激活:</p>' +
-                '<a target="_blank" style="color: #5579ee;font-size: 16px">'+  +'</a>' +
+                '<a target="_blank" style="color: #5579ee;font-size: 20px" href="'+ activateUrl +'">'+ activateUrl +'</a>' +
                 '</div>'
             /*创建email的连接*/
             let smtpTransport = nodemailer.createTransport({
