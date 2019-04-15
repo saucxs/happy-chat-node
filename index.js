@@ -34,6 +34,7 @@ io.on("connection", socket => {
     });
     //私聊
     socket.on("sendPrivateMsg", async data => {
+        console.log(data, 'data')
         const arr = await socketModel.getUserSocketId(data.to_user);
         const RowDataPacket = arr[0];
         const socketid = JSON.parse(JSON.stringify(RowDataPacket)).socketid;

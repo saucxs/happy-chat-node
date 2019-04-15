@@ -64,6 +64,12 @@ let editorRemark = (remark, user_id, other_user_id, is_show) => {
     return query(_sql, [remark, user_id, other_user_id, is_show]);
 }
 
+//修改我的信息
+let editorInfo = function(data) {
+    let _sql = ' UPDATE  user_info SET github = ?,website = ?,sex = ?,place = ? WHERE id = ? ; '
+    return query(_sql, data)
+}
+
 
 
 module.exports = {
@@ -76,5 +82,6 @@ module.exports = {
     isFriend,
     addAsFriend,
     editorRemark,
-    delFriend
+    delFriend,
+    editorInfo
 }

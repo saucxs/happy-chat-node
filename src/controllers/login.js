@@ -26,7 +26,7 @@ module.exports = async (ctx, next) => {
                     name: name,
                     id: res[0]["id"]
                 };
-                const token = jwt.sign(userToken, secret, {expiresIn: '24h'});
+                const token = jwt.sign(userToken, secret, {expiresIn: '7d'});
                 ctx.body = {
                     success: true,
                     message: "登陆成功",

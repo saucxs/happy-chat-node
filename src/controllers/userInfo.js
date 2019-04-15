@@ -118,7 +118,6 @@ let agreeBeFriend = async (ctx, next) => {
  * @return
  */
 let delFriend = async (ctx, next) => {
-	console.log(ctx.user_id, ctx.query.other_user_id, '1111111111111111111111111111111111111111111')
 	await userModel.delFriend(0, ctx.user_id, ctx.query.other_user_id)
 		.then(result => {
 			if (result) {
@@ -155,7 +154,6 @@ let shieldFriend = async (ctx, next) => {
 			ctx.request.body.user_id,
 			ctx.request.body.other_user_id
 		).then(result => {
-			console.log("shieldFriend", result);
 			if (result) {
 				ctx.body = {
 					success: true
@@ -182,7 +180,6 @@ let editorRemark = async (ctx, next) => {
 			ctx.request.body.other_user_id,
 			1
 		).then(result => {
-			console.log("editorRemark", result);
 			if (result) {
 				ctx.body = {
 					success: true
@@ -207,9 +204,7 @@ let editorRemark = async (ctx, next) => {
  */
 let editorInfo = async (ctx, next) => {
 	const data = [ctx.request.body.github, ctx.request.body.website, ctx.request.body.sex, ctx.request.body.place, ctx.user_id]
-	console.log('editorInfo', data)
 	await userModel.editorInfo(data).then(result => {
-			console.log("editorInfo", result);
 			if (result) {
 				ctx.body = {
 					success: true

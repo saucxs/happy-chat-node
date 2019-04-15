@@ -39,6 +39,7 @@ router.get('/get_group_info', verify, groupChat.getGroupInfo) //获取群资料
 router.get('/is_in_group', verify, groupInfo.isInGroup) // 看某个用户是否在某个群中(根据返回的数组长度是不是为零就知道)
 router.delete('/exit_group', verify, groupInfo.exitGroup) // 退群
 router.get('/get_groups', verify, groupInfo.getGroups) // 获取朋友列表
+router.put('/editor_info', verify, userInfo.editorInfo) // 修改我的信息
 
 console.log("router");
 

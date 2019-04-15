@@ -1,4 +1,5 @@
 const privateChatModel = require("../models/privateChat");
+const userModel = require("../models/userInfo");
 
 /**
  * 获取私聊相关内容
@@ -37,12 +38,22 @@ let getprivateDetail = async (ctx, next) => {
  * @return
  */
 let savePrivateMsg = async (ctx, next) => {
-	const from_user = ctx.user_id,
+	const from_user = ctx.user_id + '',
 		to_user = ctx.request.body.to_user,
 		message = ctx.request.body.message,
 		name = ctx.request.body.name,
 		time = ctx.request.body.time;
-	await privateChatModel.savePrivateMsg(from_user, to_user, message, name, time)
+	const dataPacket1 = await userModel.isFriend(
+        ctx.request.body.to_user,
+        ctx.user_id,
+        1
+        ),
+    fiendRemark = JSON.parse(JSON.stringify(dataPacket1));
+	// console.log(fiendRemark, 'fiendRemarkfiendRemarkfiendRemarkfiendRemarkfiendRemark')
+	let remark = fiendRemark[0].remark?fiendRemark[0].remark:name;
+	// console.log(from_user, ctx.request.body.from_user, '0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0')
+	// console.log(remark, '-=-=-=-======0-0-0-0-0-0-0-0-0-0-0-0-')
+	await privateChatModel.savePrivateMsg(from_user, to_user, message, name, remark, time)
 		.then(result => {
 			console.log("privateChatModel11", result);
 			if (result) {
