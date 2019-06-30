@@ -38,8 +38,11 @@ let getGroupInfo = async (ctx, next) => {
 
 let getGroupDetail = async (ctx, next) => {
 	try {
+		let page = ctx.query.page || 1;
+		let pageNum = ctx.query.pageNum || 20;
+		let pageIndex = (page - 1) * pageNum < 0 ? 0 : (page - 1) * pageNum;
 		const groupId = ctx.query.groupId,
-			RowDataPacket1 = await groupChatModel.getGroupMsg(groupId),
+			RowDataPacket1 = await groupChatModel.getGroupMsg(groupId, pageIndex, pageNum),
 			RowDataPacket2 = await groupChatModel.getGroupInfo([groupId, null]),
 			RowDataPacket3 = await groupChatModel.getGroupMember(groupId),
 			groupMsg = JSON.parse(JSON.stringify(RowDataPacket1)),

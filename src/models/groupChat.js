@@ -9,10 +9,14 @@ const {
  * @return  from_user  发送人id
  *  @return  avator  发送人头像
  */
-let getGroupMsg = function(groupId) {
-	let _sql =
-		"SELECT g.message , g.time , g.from_user ,i.avator ,i.name FROM group_msg  As g inner join user_info AS i ON g.from_user = i.id  WHERE to_group = ? order by time ";
-	return query(_sql, groupId);
+let getGroupMsg = function(groupId, pageIndex, pageNum) {
+	// console.log(groupId, `${pageIndex}`, `${pageNum}`, '09090909090')
+	console.log(groupId, pageIndex, pageNum, '09090909090')
+	const data = [groupId, Number(pageIndex), Number(pageNum)];
+	const _sql = "SELECT * FROM (SELECT g.message , g.time , g.from_user ,i.avator ,i.name FROM group_msg  As g inner join user_info AS i ON g.from_user = i.id  WHERE to_group = ? order by time desc limit ?,?) as n order by n.time";
+	// let _sql =
+	// 	"SELECT g.message , g.time , g.from_user ,i.avator ,i.name FROM group_msg  As g inner join user_info AS i ON g.from_user = i.id  WHERE to_group = ? order by time desc LIMIT ?, ?";
+	return query(_sql, data);
 };
 /**
  * 获取群成员
