@@ -14,10 +14,10 @@ const { query } = require("../utils/db");
 //  *          place 发送者居住地
  *         status 发送者的是否在线
  */
-let getPrivateDetail = (from_user,to_user)=>{
-    const data = [from_user,to_user,to_user,from_user]
+let getPrivateDetail = (from_user,to_user, pageIndex, pageNum)=>{
+    const data = [from_user, to_user, to_user, from_user, Number(pageIndex), Number(pageNum)];
     const _sql =
-    'select p.from_user,p.to_user, p.message ,p.time ,i.avator , i.name ,i.status  from private_msg as p  inner join user_info as i  on p.from_user = i.id  where  (p.from_user = ? AND p.to_user   = ? )  or (p.from_user = ? AND p.to_user   = ? )  order by time '
+        "select p.from_user,p.to_user, p.message ,p.time ,i.avator , i.name ,i.status  from private_msg as p  inner join user_info as i  on p.from_user = i.id  where  (p.from_user = ? AND p.to_user   = ? )  or (p.from_user = ? AND p.to_user   = ? )  order by time '	    'SELECT * FROM(select p.from_user,p.to_user, p.message ,p.time ,i.avator , i.name ,i.status  from private_msg as p  inner join user_info as i  on p.from_user = i.id  where  (p.from_user = ? AND p.to_user   = ? )  or (p.from_user = ? AND p.to_user   = ? )  order by time desc limit ?, ?) as n order by n.time"
     return query(_sql, data);
 }
 
