@@ -38,16 +38,18 @@ let getGroupInfo = async (ctx, next) => {
 
 let getGroupDetail = async (ctx, next) => {
 	try {
-		let page = ctx.query.page || 1;
-		let pageNum = ctx.query.pageNum || 20;
-		let pageIndex = (page - 1) * pageNum < 0 ? 0 : (page - 1) * pageNum;
+        let page = ctx.query.page || 1;
+        let pageNum = ctx.query.pageNum || 20;
+        let pageIndex = (page - 1) * pageNum < 0 ? 0 : (page - 1) * pageNum;
 		const groupId = ctx.query.groupId,
 			RowDataPacket1 = await groupChatModel.getGroupMsg(groupId, pageIndex, pageNum),
 			RowDataPacket2 = await groupChatModel.getGroupInfo([groupId, null]),
 			RowDataPacket3 = await groupChatModel.getGroupMember(groupId),
+            RowDataPacket4 = await groupChatModel.getGroupMemberInfo(groupId),
 			groupMsg = JSON.parse(JSON.stringify(RowDataPacket1)),
 			groupInfo = JSON.parse(JSON.stringify(RowDataPacket2)),
-			groupMember = JSON.parse(JSON.stringify(RowDataPacket3));
+			groupMember = JSON.parse(JSON.stringify(RowDataPacket3)),
+        	groupMemberInfo = JSON.parse(JSON.stringify(RowDataPacket4));
 		let newGroupMember = [];
 		groupMember.forEach(element => {
 			newGroupMember.push(element.group_member_id);
@@ -58,7 +60,8 @@ let getGroupDetail = async (ctx, next) => {
 			data: {
 				groupMsg: groupMsg,
 				groupInfo: groupInfo,
-				groupMember: newGroupMember
+				groupMember: newGroupMember,
+                groupMemberInfo: groupMemberInfo
 			}
 		};
 	} catch (error) {
@@ -125,5 +128,5 @@ module.exports = {
 	getGroupInfo,
 	getGroupDetail,
 	saveGroupMsg,
-	addGroupUserRelation
+	addGroupUserRelation,
 };

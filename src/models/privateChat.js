@@ -14,10 +14,9 @@ const { query } = require("../utils/db");
 //  *          place 发送者居住地
  *         status 发送者的是否在线
  */
-let getPrivateDetail = (from_user, to_user, pageIndex, pageNum)=>{
-    const data = [from_user, to_user, to_user, from_user, Number(pageIndex), Number(pageNum)]
-    const _sql =
-    'SELECT * FROM(select p.from_user,p.to_user, p.message ,p.time ,i.avator , i.name ,i.status  from private_msg as p  inner join user_info as i  on p.from_user = i.id  where  (p.from_user = ? AND p.to_user   = ? )  or (p.from_user = ? AND p.to_user   = ? )  order by time desc limit ?, ?) as n order by n.time'
+let getPrivateDetail = (from_user,to_user, pageIndex, pageNum)=>{
+    const data = [from_user, to_user, to_user, from_user, Number(pageIndex), Number(pageNum)];
+    const _sql = "SELECT * FROM(select p.from_user,p.to_user, p.message ,p.time ,i.avator , i.name ,i.status  from private_msg as p  inner join user_info as i  on p.from_user = i.id  where  (p.from_user = ? AND p.to_user   = ? )  or (p.from_user = ? AND p.to_user   = ? )  order by time desc limit ?, ?) as n order by n.time"
     return query(_sql, data);
 }
 
@@ -33,8 +32,7 @@ let getPrivateDetail = (from_user, to_user, pageIndex, pageNum)=>{
 
 let savePrivateMsg = function(from_user, to_user, message, name, remark, time) {
     const data = [from_user, to_user, `${remark} : ${message}`, time];
-    let _sql =
-      " INSERT INTO private_msg(from_user,to_user,message ,time)  VALUES(?,?,?,?); ";
+    let _sql = " INSERT INTO private_msg(from_user,to_user,message ,time)  VALUES(?,?,?,?); ";
     return query(_sql, data);
   };
 

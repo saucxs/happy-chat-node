@@ -78,10 +78,8 @@ let exitGroup = async (ctx, next) => {
  */
 
 let getGroups = async (ctx, next) => {
-	console.log(ctx.user_id, 'eqwewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
     const RowDataPacket = await groupInfo.getGroups(ctx.user_id),
         alreadyGroups = JSON.parse(JSON.stringify(RowDataPacket));
-    console.log(RowDataPacket, '777777777777777777777777777777777777777777')
     ctx.body = {
         success: true,
         data: {

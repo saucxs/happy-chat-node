@@ -21,6 +21,7 @@ const mailer = {
 
 const secret = 'happy-chat-sec'
 
+
 module.exports = {
     db,
     mailer,

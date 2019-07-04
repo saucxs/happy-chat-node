@@ -15,9 +15,9 @@ const userModel = require("../models/userInfo");
  */
 
 let getprivateDetail = async (ctx, next) => {
-	let page = ctx.query.page || 1;
-	let pageNum = ctx.query.pageNum || 30;
-	let pageIndex = (page - 1) * pageNum < 0 ? 0 : (page - 1) * pageNum;
+    let page = ctx.query.page || 1;
+    let pageNum = ctx.query.pageNum || 30;
+    let pageIndex = (page - 1) * pageNum < 0 ? 0 : (page - 1) * pageNum;
 	const to_user = ctx.query.to_user,
 		from_user = ctx.user_id,
 		RowDataPacket = await privateChatModel.getPrivateDetail(from_user, to_user, pageIndex, pageNum),
