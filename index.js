@@ -5,12 +5,13 @@ const cors = require("koa2-cors");
 const router = require("./src/routes/index");
 const { query } = require("./src/utils/db");
 const socketModel = require("./src/models/soketHander");
+const socketIo = require('socket.io');
 const app = new Koa();
 
 // app.use(history());
 
 const server = require("http").createServer(app.callback());
-const io = require("socket.io")(server);
+const io = socketIo(server);
 
 server.listen(3000);
 
@@ -44,7 +45,6 @@ io.on("connection", socket => {
     socket.on("sendGroupMsg", async data => {
         io.sockets.emit("getGroupMsg", data);
     });
-
     //加好友请求
     socket.on("sendRequest", async data => {
         console.log("sendRequest", data);

@@ -45,9 +45,11 @@ let getGroupDetail = async (ctx, next) => {
 			RowDataPacket1 = await groupChatModel.getGroupMsg(groupId, pageIndex, pageNum),
 			RowDataPacket2 = await groupChatModel.getGroupInfo([groupId, null]),
 			RowDataPacket3 = await groupChatModel.getGroupMember(groupId),
+            RowDataPacket4 = await groupChatModel.getGroupMemberInfo(groupId),
 			groupMsg = JSON.parse(JSON.stringify(RowDataPacket1)),
 			groupInfo = JSON.parse(JSON.stringify(RowDataPacket2)),
-			groupMember = JSON.parse(JSON.stringify(RowDataPacket3));
+			groupMember = JSON.parse(JSON.stringify(RowDataPacket3)),
+        	groupMemberInfo = JSON.parse(JSON.stringify(RowDataPacket4));
 		let newGroupMember = [];
 		groupMember.forEach(element => {
 			newGroupMember.push(element.group_member_id);
@@ -58,7 +60,8 @@ let getGroupDetail = async (ctx, next) => {
 			data: {
 				groupMsg: groupMsg,
 				groupInfo: groupInfo,
-				groupMember: newGroupMember
+				groupMember: newGroupMember,
+                groupMemberInfo: groupMemberInfo
 			}
 		};
 	} catch (error) {
@@ -125,5 +128,5 @@ module.exports = {
 	getGroupInfo,
 	getGroupDetail,
 	saveGroupMsg,
-	addGroupUserRelation
+	addGroupUserRelation,
 };
