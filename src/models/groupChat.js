@@ -14,6 +14,7 @@ let getGroupMsg = function(groupId, pageIndex, pageNum) {
     const _sql = "SELECT * FROM (SELECT g.message , g.time , g.from_user ,i.avator ,i.name FROM group_msg  As g inner join user_info AS i ON g.from_user = i.id  WHERE to_group = ? order by time desc limit ?,?) as n order by n.time";
     return query(_sql, data);
 };
+
 /**
  * 获取群成员 获取人员id
  * @param   群id
@@ -57,6 +58,8 @@ let getGroupInfo = function(arr) {
  */
 
 let saveGroupMsg = function(userId, groupId, message, name, time) {
+	console.log(message, '------------------------')
+
 	const data = [userId, groupId, `${name} : ${message}`, time];
 	let _sql = " INSERT INTO group_msg(from_user,to_group,message ,time) VALUES(?,?,?,?); ";
 	return query(_sql, data);
