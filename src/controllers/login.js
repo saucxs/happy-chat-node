@@ -52,7 +52,7 @@ module.exports = async (ctx, next) => {
         } else {
             ctx.body = {
                 success: false,
-                message: "请先激活注册邮箱"
+                message: "前往注册邮箱进行激活"
             }
         }
 

@@ -106,22 +106,29 @@ let saveGroupMsg = async (ctx, next) => {
  */
 let addGroupUserRelation = async (ctx, next) => {
 	const userId = ctx.user_id,
-		groupId = ctx.request.body.groupId;
-	await groupChatModel.addGroupUserRelation(userId, groupId);
-	const RowDataPacket = await groupChatModel.getGroupMember(groupId),
-		groupMember = JSON.parse(JSON.stringify(RowDataPacket));
-	let newGroupMember = [];
-	groupMember.forEach(element => {
-		newGroupMember.push(element.group_member_id);
-	});
-
-	ctx.body = {
-		success: true,
-		data: {
-			groupMember: newGroupMember
-		}
-	};
-	console.log("添加群成员成功");
+		groupId = ctx.request.body.groupId,
+		RowDataPacket3 = await groupChatModel.getGroupMember(groupId),
+        groupMember = JSON.parse(JSON.stringify(RowDataPacket3));
+	if(groupMember.length > 50){
+        ctx.body = {
+            success: false,
+            data: {},
+			message: '当前群的人数已达上限50人'
+        };
+	}else{
+        await groupChatModel.addGroupUserRelation(userId, groupId);
+        let newGroupMember = [userId];
+        groupMember.forEach(element => {
+            newGroupMember.push(element.group_member_id);
+        });
+        ctx.body = {
+            success: true,
+            data: {
+                groupMember: newGroupMember
+            },
+			message: '添加群成员成功'
+        };
+	}
 };
 
 module.exports = {

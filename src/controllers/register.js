@@ -79,18 +79,23 @@ let activate = async (ctx, next) => {
             if (user.activate) {
                 ctx.body = {
                     success: false,
-                    message: "该邮箱"+ user.email +"\r在"+ user.activateDate +"已经激活"
+                    message: "该邮箱"+ user.email +"，用户名："+ user.name+"。\r在"+ user.activateDate +"已经激活"
                 }
             } else {
                 let activateDate = toNomalTime(new Date().getTime())
-                userModel.activateUser(true, activateDate, user.email).then(res => {
-                    if (res) {
-                        ctx.body = {
-                            success: true,
-                            message: "恭喜你，"+ user.email +"激活成功"
-                        }
+                let data = userModel.activateUser(true, activateDate, user.email);
+                console.log(data, '90909090909090')
+                if(data){
+                    ctx.body = {
+                        success: true,
+                        message: "恭喜你，"+ user.email +"激活成功，用户名："+ user.name +'。'
                     }
-                })
+                }else{
+                    ctx.body = {
+                        success: false,
+                        message: "服务器开小差"
+                    }
+                }
             }
         } else {
             ctx.body = {
