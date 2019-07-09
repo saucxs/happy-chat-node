@@ -31,6 +31,7 @@ router.delete('/del_friend', verify, userInfo.delFriend) // 删除好友
 router.put('/update_newfriends', verify, newFriends.updateNewFriends) // 更新 新好友状态  是否已被同意加好友
 router.put('/editor_remark', verify, userInfo.editorRemark) // 修改备注
 router.post('/create_group', verify, groupInfo.createGroup) // 建群
+router.post('/edit_group', verify, groupInfo.editGroup) // 编辑群
 router.post('/join_group', verify, groupInfo.joinGroup) // 加入群
 router.get('/group_chat', verify, groupChat.getGroupDetail) //获取群相关内容
 router.post('/group_chat_msg', verify, groupChat.saveGroupMsg) // 保存群信息

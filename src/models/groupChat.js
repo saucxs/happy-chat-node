@@ -31,7 +31,6 @@ let getGroupMember = function(groupId) {
  * @return  group_member_id  群成员id
  */
 let getGroupMemberInfo = function(groupId) {
-	console.log(groupId, '-=-=-=-=-=')
     let _sql = "SELECT g.user_id, u.name, u.status, u.avator, u.github, u.intro,u.website FROM group_user_relation AS g inner join user_info AS u ON g.user_id = u.id WHERE group_id = ?";
     return query(_sql, groupId);
 };
@@ -42,7 +41,7 @@ let getGroupMemberInfo = function(groupId) {
  * @return
  */
 let getGroupInfo = function(arr) {
-	let _sql = " SELECT group_id , group_name , group_notice ,group_avator ,group_creater ,creater_time FROM group_info  WHERE group_id = ? OR group_name = ? ;";
+	let _sql = " SELECT * FROM group_info  WHERE group_id = ? OR group_name = ? ;";
 	return query(_sql, arr);
 };
 
@@ -58,8 +57,6 @@ let getGroupInfo = function(arr) {
  */
 
 let saveGroupMsg = function(userId, groupId, message, name, time) {
-	console.log(message, '------------------------')
-
 	const data = [userId, groupId, `${name} : ${message}`, time];
 	let _sql = " INSERT INTO group_msg(from_user,to_group,message ,time) VALUES(?,?,?,?); ";
 	return query(_sql, data);

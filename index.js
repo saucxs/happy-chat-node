@@ -8,6 +8,15 @@ const socketModel = require("./src/models/soketHander");
 const socketIo = require('socket.io');
 const app = new Koa();
 
+/*访问日志文件*/
+const { logger, accessLogger } = require('./loggers');
+app.use(accessLogger());
+
+/*应用日志*/
+app.on('error', err => {
+    logger.error(err);
+});
+
 // app.use(history());
 
 const server = require("http").createServer(app.callback());

@@ -21,6 +21,13 @@ let createGroup = (arr) => {
 	return query(_sql, arr)
 }
 
+// 编辑群
+let editGroup = (arr) => {
+    let _sql = "update group_info set group_name = ?, group_notice = ?, update_time = ? where group_id = ?"
+    return query(_sql, arr)
+}
+
+
 // 删除群
 let exitGroup = (user_id, group_id) => {
 	let _sql = "DELETE FROM  group_user_relation WHERE user_id = ? AND group_id = ? ;"
@@ -38,6 +45,7 @@ module.exports = {
 	joinGroup,
 	isInGroup,
 	createGroup,
+    editGroup,
 	exitGroup,
     getGroups
 };

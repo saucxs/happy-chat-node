@@ -46,7 +46,6 @@ let isInGroup = async (ctx, next) => {
  */
 let createGroup = async (ctx, next) => {
 	const uuid = uuidv1();
-	console.log('uuid', uuid)
 	const arr = [uuid, ctx.request.body.group_name, ctx.request.body.group_notice, ctx.request.body.group_avator, ctx.name, ctx.request.body.creater_time];
 	await groupInfo.createGroup(arr);
 	ctx.body = {
@@ -55,6 +54,24 @@ let createGroup = async (ctx, next) => {
 			group_id: uuid
 		}
 	};
+};
+
+/**
+ * [editGroup 建群]
+ * @param  {[type]}   ctx  [群名，群公告，群头像，修改时间]
+ * @param  {Function} next [description]
+ * @return {Promise}       [description]
+ */
+let editGroup = async (ctx, next) => {
+    const group_id = ctx.request.body.editGroupId;
+    const arr = [ctx.request.body.group_name, ctx.request.body.group_notice, ctx.request.body.update_time, group_id];
+    await groupInfo.editGroup(arr);
+    ctx.body = {
+        success: true,
+        data: {
+
+        }
+    };
 };
 
 /**
@@ -92,6 +109,7 @@ module.exports = {
 	joinGroup,
 	isInGroup,
 	createGroup,
+    editGroup,
 	exitGroup,
     getGroups
 };
