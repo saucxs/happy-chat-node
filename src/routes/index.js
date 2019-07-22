@@ -10,8 +10,11 @@ const userInfo = require('../controllers/userInfo.js');
 const newFriends = require('../controllers/newFriends.js');
 const groupInfo = require('../controllers/groupInfo.js');
 const groupChat = require('../controllers/groupChat.js');
+const fs = require('fs');
 
 router.prefix(`/${baseApi}`)
+
+router.get("/",(ctx)=>{ ctx.body = fs.readFileSync("./index.html","utf-8"); });
 
 router.post('/register', register.unActivate) //注册-未激活
 router.get('/activate', register.activate) //注册-激活

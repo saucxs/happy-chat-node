@@ -5,71 +5,79 @@
 [![GitHub forks](https://img.shields.io/github/forks/saucxs/happy-chat-node.svg)](https://github.com/saucxs/happy-chat-node/network)
 [![GitHub issues](https://img.shields.io/github/issues/saucxs/happy-chat-node.svg)](https://github.com/saucxs/happy-chat-node/issues)
 
-乐聊，一个快乐聊天的应用，支持pc端和无线端。线上地址：http://chat.chengxinsong.cn
+乐聊，一个快乐聊天的应用，支持pc端和无线端。技术栈：vue+vuex+koa+websocketIO+mysql+redis。线上地址：https://chat.chengxinsong.cn
 
 ## 1、功能
 + 版本v 1.0.0
-    - 1、支持注册用户和邮件激活用户；
-    - 2、支持登陆
-    - 3、支持机器人聊天；
-    - 4、支持加好友，一对一聊天；
-    - 5、支持创建群，加群，一对多聊天；
-    - 6、支持删除好友，退出群
-    - 7、支持个人信息编辑
-    - 8、支持添加好友备注
-    - 9、支持聊天中文字发送
-    - 10、支持浏览器：Chrome，Firefox，Safari，IE9及以上； 
+    - [x] 1、支持注册用户和邮件激活用户；
+    - [x] 2、支持登陆
+    - [x] 3、支持机器人聊天；
+    - [x] 4、支持加好友，一对一聊天；
+    - [x] 5、支持创建群，加群，一对多聊天；
+    - [x] 6、支持删除好友，退出群
+    - [x] 7、支持个人信息编辑
+    - [x] 8、支持添加好友备注
+    - [x] 9、支持聊天中文字发送
+    - [x] 10、支持浏览器：Chrome，Firefox，Safari，IE9及以上； 
 
 + 版本v 1.1.0
-    - 1、支持聊天中图片发送
-    - 2、支持聊天中表情发送
-    - 待续
+    - [x] 1、支持聊天中表情发送
+    - [x] 2、支持聊天内容分页获取，滚动条保持在分页时候的地方
+    - [ ] 3、支持聊天中图片发送
     
++ 版本v 1.1.1
+    - [x] 1、支持https和http2.0，前端路由模式history
+    - [ ] 2、支持聊天中图片发送
     
 ## 2、线上地址
 
-http://chat.chengxinsong.cn
+https://chat.chengxinsong.cn
     
 ## 3、源码使用
-```js
+```
 git clone https://github.com/saucxs/happy-chat-node.git
 
 cd happy-chat-node
 
 npm i
 
-npm run dev 
+npm run start 
 ```
 
 ## 4、截图
 
-登陆
+聊天
 
-![login](./images/login.png)
+![chat](./images/chat.png)
 
 
 机器人
 
-![login](./images/robot.png)
+![robot](./images/robot.png)
 
 消息列表
 
-![login](./images/message.png)
+![message](./images/message.png)
 
 通讯录
 
-![login](./images/contact.png)
+![contact](./images/contact.png)
 
 个人信息
 
-![login](./images/personal.png)
+![personal](./images/personal.png)
 
 等等
 
-## 5、前端源码地址
+## 5、源码地址
+项目采用前后端分离，暂时没有给出数据库，有需求可以联系我。
++ 前端代码：https://github.com/saucxs/happy-chat-web
++ 后端代码：https://github.com/saucxs/happy-chat-node
 
-https://github.com/saucxs/happy-chat-web
+## 6、相应文章
++ [happyChat开发系列：使用websocket.io实现双向通信的乐聊大前端开发](http://www.chengxinsong.cn/post/40)
++ [【nginx系列】nginx升级到支持HTTP2.0](https://www.mwcxs.top/page/784.html)
 
-## 6、最后
 
+## 7、最后
 欢迎fork和star，有问题提issue
