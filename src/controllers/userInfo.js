@@ -217,6 +217,16 @@ let editorInfo = async (ctx, next) => {
 		});
 };
 
+/**
+ * PV埋点
+ * @param
+ * @return
+ */
+let pvLog = async (ctx, next) => {
+    const data = ctx.request.body;
+    console.log(data, '================================')
+};
+
 module.exports = {
 	getUserInfo,
 	findUIByName,
@@ -225,5 +235,6 @@ module.exports = {
 	delFriend,
 	shieldFriend,
 	editorRemark,
-	editorInfo
+	editorInfo,
+    pvLog
 };

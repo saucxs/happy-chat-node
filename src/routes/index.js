@@ -10,11 +10,8 @@ const userInfo = require('../controllers/userInfo.js');
 const newFriends = require('../controllers/newFriends.js');
 const groupInfo = require('../controllers/groupInfo.js');
 const groupChat = require('../controllers/groupChat.js');
-const fs = require('fs');
 
 router.prefix(`/${baseApi}`)
-
-router.get("/",(ctx)=>{ ctx.body = fs.readFileSync("./index.html","utf-8"); });
 
 router.post('/register', register.unActivate) //注册-未激活
 router.get('/activate', register.activate) //注册-激活
@@ -44,6 +41,8 @@ router.get('/is_in_group', verify, groupInfo.isInGroup) // 看某个用户是否
 router.delete('/exit_group', verify, groupInfo.exitGroup) // 退群
 router.get('/get_groups', verify, groupInfo.getGroups) // 获取朋友列表
 router.put('/editor_info', verify, userInfo.editorInfo) // 修改我的信息
+
+router.post('/pv_log', verify, userInfo.pvLog) // 修改我的信息
 
 console.log("router");
 
