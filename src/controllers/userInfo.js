@@ -224,7 +224,12 @@ let editorInfo = async (ctx, next) => {
  */
 let pvLog = async (ctx, next) => {
     const data = ctx.request.body;
-    userModel.logPV([data.type, data.user_id, data.time,
+    let req = ctx.req;
+    let clientIP = req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress;
+    userModel.logPV([clientIP, data.type, data.user_id, data.time,
         data.params.from.name || '', data.params.from.path || '', JSON.stringify(data.params.from.query) || '',
         data.params.to.name || '', data.params.to.path || '', JSON.stringify(data.params.to.query) || '']);
     ctx.body = {

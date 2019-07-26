@@ -22,7 +22,6 @@ module.exports = async (ctx, next) => {
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress;
-    console.log(clientIP, '客户端IP');
     const alreadyRow = await userModel.findDataByName(name);
     const res = JSON.parse(JSON.stringify(alreadyRow));
     if (res.length > 0) {

@@ -77,8 +77,7 @@ let logLogin= function (value) {
 
 /* PV日志 */
 let logPV= function (value) {
-    console.log(value, '-=-=-=-=-=-=--=-=-')
-    let sql = "insert into log_pv(pv_type, user_id, pv_date, pv_from_name, pv_from_path, pv_from_query, pv_to_name, pv_to_path, pv_to_query) values(?,?,?,?,?,?,?,?,?)"
+    let sql = "insert into log_pv(pv_ip, pv_type, user_id, pv_date, pv_from_name, pv_from_path, pv_from_query, pv_to_name, pv_to_path, pv_to_query) values(?,?,?,?,?,?,?,?,?,?)"
     return query(sql, value)
 }
 
