@@ -1,23 +1,23 @@
 const {query} = require('../utils/db');
 
-/*注册用户-未激活*/
+/* 注册用户-未激活 */
 let insertUser= function (value) {
     let sql = "insert into user_info(name, password, email, activate, activateCode) values(?,?,?,?,?)"
     return query(sql, value)
 }
 
-/*注册用户-激活*/
+/* 注册用户-激活 */
 let activateUser= function (activate, activateDate, email) {
     let sql = "update user_info SET activate = ?, activateDate = ? WHERE email = ? "
     return query(sql, [activate, activateDate, email])
 }
 
-/*通过activateCode查找用户信息 user_info*/
+/* 通过activateCode查找用户信息 user_info */
 let findDataByActivateCode = function(activateCode) {
     let _sql = 'SELECT * FROM user_info WHERE activateCode= ? '
     return query(_sql, activateCode)
 }
-/*通过用户名查找用户信息 user_info*/
+/* 通过用户名查找用户信息 user_info */
 let findDataByName = function(name) {
     let _sql = 'SELECT * FROM user_info WHERE name= ? '
     return query(_sql, name)
@@ -56,19 +56,31 @@ let delFriend = (is_show, user_id, other_user_id) => {
     return query(_sql, [is_show, user_id, other_user_id]);
 }
 
-//修改备注
+// 修改备注
 let editorRemark = (remark, user_id, other_user_id, is_show) => {
     const _sql =
         'UPDATE  user_user_relation  SET remark = ?  WHERE  user_id = ? AND other_user_id = ? AND is_show = ?'
     return query(_sql, [remark, user_id, other_user_id, is_show]);
 }
 
-//修改我的信息
+// 修改我的信息
 let editorInfo = function(data) {
     let _sql = ' UPDATE  user_info SET github = ?,website = ?,sex = ?,place = ? WHERE id = ? ; '
     return query(_sql, data)
 }
 
+/* 登陆日志 */
+let logLogin= function (value) {
+    let sql = "insert into log_login(name, password, ip, is_activate, is_success, login_date) values(?,?,?,?,?,?)"
+    return query(sql, value)
+}
+
+/* PV日志 */
+let logPV= function (value) {
+    console.log(value, '-=-=-=-=-=-=--=-=-')
+    let sql = "insert into log_pv(pv_type, user_id, pv_date, pv_from_name, pv_from_path, pv_from_query, pv_to_name, pv_to_path, pv_to_query) values(?,?,?,?,?,?,?,?,?)"
+    return query(sql, value)
+}
 
 
 module.exports = {
@@ -82,5 +94,7 @@ module.exports = {
     addAsFriend,
     editorRemark,
     delFriend,
-    editorInfo
+    editorInfo,
+    logLogin,
+    logPV
 }

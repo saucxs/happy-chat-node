@@ -6,7 +6,6 @@ const mailer = require('../config').mailer;
 const {randomString, toNomalTime, mailTemplate} = require('../utils/common');
 
 let unActivate = async (ctx, next) => {
-    console.log("register");
     let user = {
         name: ctx.request.body.name,
         password: ctx.request.body.password,
@@ -14,7 +13,6 @@ let unActivate = async (ctx, next) => {
     }
     let salt = dbConfig.salt
     await userModel.findDataByName(user.name).then(res => {
-        console.log(res, '结果')
         if(res.length) {
             ctx.body = {
                 success: false,
@@ -84,7 +82,6 @@ let activate = async (ctx, next) => {
             } else {
                 let activateDate = toNomalTime(new Date().getTime())
                 let data = userModel.activateUser(true, activateDate, user.email);
-                console.log(data, '90909090909090')
                 if(data){
                     ctx.body = {
                         success: true,

@@ -3,6 +3,7 @@ const secret = require("../config").secret;
 const userModel = require("../models/userInfo");
 const  md5 = require("md5");
 const dbConfig = require('../config').db;
+const { toNomalTime } = require('../utils/common');
 
 module.exports = async (ctx, next) => {
     let name = ctx.request.body.name || "";
@@ -14,6 +15,14 @@ module.exports = async (ctx, next) => {
         };
         return ;
     }
+    let loginDate = toNomalTime(new Date().getTime());
+    // /* 获取客户端IP 无代理和有代理 */
+    let req = ctx.req;
+    let clientIP = req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress;
+    console.log(clientIP, '客户端IP');
     const alreadyRow = await userModel.findDataByName(name);
     const res = JSON.parse(JSON.stringify(alreadyRow));
     if (res.length > 0) {
@@ -27,6 +36,7 @@ module.exports = async (ctx, next) => {
                     id: res[0]["id"]
                 };
                 const token = jwt.sign(userToken, secret, {expiresIn: '7d'});
+                userModel.logLogin([name, password, clientIP, true, true, loginDate]);
                 ctx.body = {
                     success: true,
                     message: "登陆成功",
@@ -44,12 +54,14 @@ module.exports = async (ctx, next) => {
                     }
                 }
             } else {
+                userModel.logLogin([name, password, clientIP, true, false, loginDate]);
                 ctx.body = {
                     success: false,
-                    message: "密码错误"
+                    message: "用户名或密码错误"
                 }
             }
         } else {
+            userModel.logLogin([name, password, clientIP, false,  false, loginDate]);
             ctx.body = {
                 success: false,
                 message: "前往注册邮箱进行激活"
@@ -57,9 +69,10 @@ module.exports = async (ctx, next) => {
         }
 
     } else {
+        userModel.logLogin([name, password, clientIP, false, false, loginDate]);
         ctx.body = {
             success: false,
-            message: "用户名错误"
+            message: "用户名或密码错误"
         };
     }
 }

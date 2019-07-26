@@ -224,7 +224,12 @@ let editorInfo = async (ctx, next) => {
  */
 let pvLog = async (ctx, next) => {
     const data = ctx.request.body;
-    console.log(data, '================================')
+    userModel.logPV([data.type, data.user_id, data.time,
+        data.params.from.name || '', data.params.from.path || '', JSON.stringify(data.params.from.query) || '',
+        data.params.to.name || '', data.params.to.path || '', JSON.stringify(data.params.to.query) || '']);
+    ctx.body = {
+        success: true
+    }
 };
 
 module.exports = {

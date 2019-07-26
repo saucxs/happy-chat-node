@@ -42,7 +42,7 @@ router.delete('/exit_group', verify, groupInfo.exitGroup) // 退群
 router.get('/get_groups', verify, groupInfo.getGroups) // 获取朋友列表
 router.put('/editor_info', verify, userInfo.editorInfo) // 修改我的信息
 
-router.post('/pv_log', verify, userInfo.pvLog) // 修改我的信息
+router.post('/pv_log', userInfo.pvLog) // pv日志
 
 console.log("router");
 
