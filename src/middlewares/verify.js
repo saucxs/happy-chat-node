@@ -6,8 +6,11 @@ module.exports = async (ctx, next) => {
     /*同步 校验token*/
     const auth = ctx.get("Authorization");
     const token = auth.split(' ')[1];
+    console.log(token, '-=-=-=-=-=-=-=')
+
     try {
-        const userToken = jwt.verify(token, secret)
+        const userToken = jwt.verify(token, secret);
+        console.log(userToken, '-=-=-=-')
         ctx.user_id = userToken.id;
         ctx.name = userToken.name;
         await next()

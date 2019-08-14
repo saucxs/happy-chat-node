@@ -35,7 +35,7 @@ module.exports = async (ctx, next) => {
                     id: res[0]["id"]
                 };
                 const token = jwt.sign(userToken, secret, {expiresIn: '7d'});
-                userModel.logLogin([name, password, clientIP, true, true, loginDate]);
+                userModel.logLogin(['password', name, password, clientIP, true, true, loginDate]);
                 ctx.body = {
                     success: true,
                     message: "登陆成功",
@@ -47,20 +47,20 @@ module.exports = async (ctx, next) => {
                         website: res[0]["website"],
                         github: res[0]["github"],
                         intro: res[0]["intro"],
-                        avator: res[0]["avator"],
+                        avatar: res[0]["avatar"],
                         place: res[0]["place"],
                         socketId: res[0]["socketid"]
                     }
                 }
             } else {
-                userModel.logLogin([name, password, clientIP, true, false, loginDate]);
+                userModel.logLogin(['password', name, password, clientIP, true, false, loginDate]);
                 ctx.body = {
                     success: false,
                     message: "用户名或密码错误"
                 }
             }
         } else {
-            userModel.logLogin([name, password, clientIP, false,  false, loginDate]);
+            userModel.logLogin(['password', name, password, clientIP, false,  false, loginDate]);
             ctx.body = {
                 success: false,
                 message: "前往注册邮箱进行激活"
@@ -68,7 +68,7 @@ module.exports = async (ctx, next) => {
         }
 
     } else {
-        userModel.logLogin([name, password, clientIP, false, false, loginDate]);
+        userModel.logLogin(['password', name, password, clientIP, false, false, loginDate]);
         ctx.body = {
             success: false,
             message: "用户名或密码错误"

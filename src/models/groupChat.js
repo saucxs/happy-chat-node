@@ -7,11 +7,11 @@ const {
  * @return  message 群消息
  * @return  time  时间
  * @return  from_user  发送人id
- *  @return  avator  发送人头像
+ *  @return  avatar  发送人头像
  */
 let getGroupMsg = function(groupId, pageIndex, pageNum) {
     const data = [groupId, Number(pageIndex), Number(pageNum)];
-    const _sql = "SELECT * FROM (SELECT g.message , g.time , g.from_user ,i.avator ,i.name FROM group_msg  As g inner join user_info AS i ON g.from_user = i.id  WHERE to_group = ? order by time desc limit ?,?) as n order by n.time";
+    const _sql = "SELECT * FROM (SELECT g.message , g.time , g.from_user ,i.avatar ,i.name FROM group_msg  As g inner join user_info AS i ON g.from_user = i.id  WHERE to_group = ? order by time desc limit ?,?) as n order by n.time";
     return query(_sql, data);
 };
 
@@ -31,7 +31,7 @@ let getGroupMember = function(groupId) {
  * @return  group_member_id  群成员id
  */
 let getGroupMemberInfo = function(groupId) {
-    let _sql = "SELECT g.user_id, u.name, u.status, u.avator, u.github, u.intro,u.website FROM group_user_relation AS g inner join user_info AS u ON g.user_id = u.id WHERE group_id = ?";
+    let _sql = "SELECT g.user_id, u.name, u.status, u.avatar, u.github, u.intro,u.website FROM group_user_relation AS g inner join user_info AS u ON g.user_id = u.id WHERE group_id = ?";
     return query(_sql, groupId);
 };
 

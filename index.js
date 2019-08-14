@@ -6,7 +6,11 @@ const router = require("./src/routes/index");
 const { query } = require("./src/utils/db");
 const socketModel = require("./src/models/soketHander");
 const socketIo = require('socket.io');
+const compress = require('koa-compress');
 const app = new Koa();
+
+/*压缩*/
+app.use(compress());
 
 /*访问日志文件*/
 const { logger, accessLogger } = require('./loggers');

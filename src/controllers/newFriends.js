@@ -9,7 +9,6 @@ const newFriendsModel = require("../models/newFriends");
 let getNewFriends = async (ctx, next) => {
 	const RowDataPacket = await newFriendsModel.getnewFriends(ctx.user_id, 1),
 		newFriends = JSON.parse(JSON.stringify(RowDataPacket));
-    console.log(RowDataPacket, '77777777777777777777777777777777777777777777777')
 	ctx.body = {
 		success: true,
 		data: {
@@ -27,7 +26,6 @@ let getNewFriends = async (ctx, next) => {
 let getFriends = async (ctx, next) => {
     const RowDataPacket = await newFriendsModel.getFriends(ctx.user_id, 1),
         alreadyFriends = JSON.parse(JSON.stringify(RowDataPacket));
-	console.log(RowDataPacket, '888888888888888888888888888888888888888888888')
     ctx.body = {
         success: true,
         data: {
@@ -64,7 +62,6 @@ let insertNewFriends = async (ctx, next) => {
 
 let updateNewFriends = async (ctx, next) => {
 	await newFriendsModel.updateNewFriends(ctx.request.body.from_user, ctx.user_id).then(result => {
-		console.log('updateNewFriends更新我的新好友通知状态成功')
 		ctx.body = {
 			success: true
 		};

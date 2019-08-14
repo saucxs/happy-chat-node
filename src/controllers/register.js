@@ -31,7 +31,7 @@ let unActivate = async (ctx, next) => {
                 success: true,
                 message: "注册成功，请前往注册邮箱进行激活"
             };
-            let activateUrl = "http://chat.chengxinsong.cn/#/activate/" + code;
+            let activateUrl = "https://chat.chengxinsong.cn/activate/" + code;
             /*sendeamil*/
             let content =  '<p style="width: 700px">用户激活邮件，点击下方的连接进行激活:</p>' +
                 '<a target="_blank" style="width: 700px;color: #5579ee;font-size: 20px" href="'+ activateUrl +'">'+ activateUrl +'</a>';
