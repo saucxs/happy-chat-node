@@ -58,7 +58,7 @@ module.exports = async (ctx, next) => {
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress;
-    userModel.logLogin(['github', data.name, ' ', clientIP, '', true, loginDate]);
+    userModel.logLogin(['github', data.name, 'github登陆', clientIP, true, true, loginDate]);
     ctx.body = {
         success: true,
         message: "github登陆成功",
