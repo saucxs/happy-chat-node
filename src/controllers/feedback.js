@@ -16,7 +16,12 @@ let getFeedbackList = async (ctx, next) => {
     if(feedbackList.length > 0){
         feedbackList.map(item => {
             item.ip = item.ip.substring(0, parseInt(item.ip.length/2)) + '****' + item.ip.substring(parseInt(item.ip.length/2)+4,item.ip.length);
-            item.email = item.email.substring(0, parseInt(item.email.length/2)) + '****' + item.email.substring(parseInt(item.email.length/2)+4,item.email.length);
+            if(item.email.length > 20) {
+                item.email = item.email.substring(0, parseInt(item.email.length/2) - 8) + '****' + item.email.substring(parseInt(item.email.length/2)+8,item.email.length);
+
+            }else{
+                item.email = item.email.substring(0, parseInt(item.email.length/2)) + '****' + item.email.substring(parseInt(item.email.length/2)+4,item.email.length);
+            }
         })
     }
     ctx.body = {
@@ -31,10 +36,17 @@ let getFeedbackList = async (ctx, next) => {
 let submitFeedback = async (ctx, next) => {
     let email = ctx.request.body.email || "";
     let content = ctx.request.body.content || "";
-    if (email === "" || content === "") {
+    let user_id = ctx.request.body.user_id;
+    let type;
+    if(user_id){
+        type = 'user'
+    }else{
+        type = 'visitor'
+    }
+    if (content === "") {
         ctx.body = {
             success: false,
-            message: "邮箱和内容不能为空"
+            message: "内容不能为空"
         };
         return ;
     }
@@ -45,8 +57,8 @@ let submitFeedback = async (ctx, next) => {
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress;
-
-    await feedbackModel.submitFeedback(email, content, clientIP, loginDate),
+    let device = req.headers['user-agent'];
+    await feedbackModel.submitFeedback(type, user_id, email, content, clientIP, device, loginDate),
     ctx.body = {
         success: true,
         message: '留言反馈提交成功'

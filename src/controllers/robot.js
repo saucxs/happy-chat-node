@@ -2,13 +2,11 @@ const request = require("request-promise");
 const tulingApiKey = require('../config').tulingApiKey;
 
 module.exports = async (ctx, next) => {
-    console.log(tulingApiKey, '-=-=-=-=-=-=-=-=-=-=')
     let date = {
         key: tulingApiKey[0],
         info: "" + ctx.query.message,
         userid: ctx.query.userId
     };
-    console.log(date, '-----------------------')
     let options = {
         method: "POST",
         uri: "http://www.tuling123.com/openapi/api",

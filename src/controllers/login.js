@@ -42,6 +42,7 @@ module.exports = async (ctx, next) => {
                     token: token,
                     userInfo: {
                         name: res[0]["name"],
+                        email: res[0]["email"],
                         user_id: res[0]["id"],
                         sex: res[0]["sex"],
                         website: res[0]["website"],
