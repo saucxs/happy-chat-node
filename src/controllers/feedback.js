@@ -36,7 +36,7 @@ let getFeedbackList = async (ctx, next) => {
 let submitFeedback = async (ctx, next) => {
     let email = ctx.request.body.email || "";
     let content = ctx.request.body.content || "";
-    let user_id = ctx.request.body.user_id;
+    let user_id = ctx.request.body.user_id || "未获取到用户ID";
     let type;
     if(user_id){
         type = 'user'
@@ -56,8 +56,8 @@ let submitFeedback = async (ctx, next) => {
     let clientIP = req.headers['x-forwarded-for'] ||
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
-        req.connection.socket.remoteAddress;
-    let device = req.headers['user-agent'];
+        req.connection.socket.remoteAddress || '未获取到IP';
+    let device = req.headers['user-agent'] || '未获取到设备信息';
     await feedbackModel.submitFeedback(type, user_id, email, content, clientIP, device, loginDate),
     ctx.body = {
         success: true,
