@@ -1,6 +1,8 @@
 const userModel = require("../models/userInfo");
 const newFriendsModel = require("../models/newFriends");
 const {toNomalTime} = require('../utils/common');
+const  md5 = require("md5");
+const dbConfig = require('../config').db;
 
 /**
  *  通过user_id获取用户信息 （不包括密码）
@@ -17,6 +19,44 @@ let getUserInfo = async (ctx, next) => {
 			userInfo: userInfo
 		}
 	};
+};
+
+/**
+ *  通过user_id修改密码
+ */
+let updatePassword = async (ctx, next) => {
+    let user_id = ctx.user_id || "";
+    let old = ctx.request.body.old || "";
+    let newPassword = ctx.request.body.new || "";
+    let salt = dbConfig.salt
+    const alreadyRow = await userModel.findPasswordByUserId(user_id);
+    const res = JSON.parse(JSON.stringify(alreadyRow));
+    if(res[0]["password"] === '' || res[0]["github_id"]) {
+        ctx.body = {
+            success: false,
+            message: '该用户为github登陆，没有密码'
+        };
+    } else {
+        if (res.length > 0) {
+            if (md5(salt + old + salt) === res[0]["password"]) {
+                newPassword = md5(salt + newPassword + salt)
+                await userModel.updatePassword(newPassword, user_id);
+                ctx.body = {
+                    success: true,
+                };
+            } else {
+                ctx.body = {
+                    success: false,
+                    message: '密码错误'
+                };
+            }
+        } else {
+            ctx.body = {
+                success: false,
+                message: '未查询到该用户'
+            };
+        }
+    }
 };
 
 /**
@@ -85,8 +125,6 @@ let agreeBeFriend = async (ctx, next) => {
 		),
 		isMyFriend = JSON.parse(JSON.stringify(RowDataPacket1)),
 		isHisFriend = JSON.parse(JSON.stringify(RowDataPacket2));
-	console.log("isMyFriend", isMyFriend);
-	console.log("isHisFriend", isHisFriend);
 	//变成本机用户的朋友
 	if (isMyFriend.length === 0) {
 		await userModel.addAsFriend(
@@ -108,7 +146,6 @@ let agreeBeFriend = async (ctx, next) => {
 	ctx.body = {
 		success: true
 	};
-	console.log("添加好友成功");
 };
 
 /**
@@ -194,7 +231,7 @@ let editorRemark = async (ctx, next) => {
 
 
 /**
- * 修改备注
+ * 修改个人信息
  * @param  github   github
  * 			website website
  * 			sex 性别
@@ -240,6 +277,7 @@ let pvLog = async (ctx, next) => {
 module.exports = {
 	getUserInfo,
 	findUIByName,
+    updatePassword,
 	isFriend,
 	agreeBeFriend,
 	delFriend,

@@ -43,11 +43,12 @@ router.get('/is_in_group', verify, groupInfo.isInGroup) // 看某个用户是否
 router.delete('/exit_group', verify, groupInfo.exitGroup) // 退群
 router.get('/get_groups', verify, groupInfo.getGroups) // 获取朋友列表
 router.put('/editor_info', verify, userInfo.editorInfo) // 修改我的信息
-
+router.post('/update_password', verify, userInfo.updatePassword)   // 更新密码
 router.post('/pv_log', userInfo.pvLog) // pv日志
 router.get('/oauth', github)   // github授权
 router.get('/get_feedback', feedback.getFeedbackList)   // 留言反馈列表
 router.post('/submit_feedback', feedback.submitFeedback)   // 留言反馈列表
+
 
 console.log("router");
 

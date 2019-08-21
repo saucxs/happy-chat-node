@@ -19,6 +19,16 @@ let findDataByName = function(name) {
     let _sql = 'SELECT * FROM user_info WHERE name= ? '
     return query(_sql, name)
 }
+/* 查询原密码 */
+let findPasswordByUserId = function(user_id) {
+    let _sql = 'select password, github_id from user_info where id = ?'
+    return query(_sql, user_id)
+}
+/* 更新密码 */
+let updatePassword = function(newPassword, user_id) {
+    let _sql = ' UPDATE  user_info SET password = ? where id = ?'
+    return query(_sql, [newPassword, user_id])
+}
 // 添加github用户
 let insertGithubData = ({ name, github_id, avatar, place, website, github, intro }) => {
     let _sql = 'insert into user_info(name, github_id, avatar, place, website, github, intro) values(?,?,?,?,?,?,?);';
@@ -88,6 +98,8 @@ module.exports = {
     insertUser,
     activateUser,
     findDataByName,
+    findPasswordByUserId,
+    updatePassword,
     findDataByActivateCode,
     insertGithubData,
     findGithubUser,

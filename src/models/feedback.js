@@ -16,7 +16,6 @@ let submitFeedback = function(type, user_id, email, content, clientIP, device, l
     return query(_sql, data)
 }
 
-
 module.exports = {
     getFeedbackList,
     submitFeedback
