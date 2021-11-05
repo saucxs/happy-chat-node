@@ -12,6 +12,7 @@ const groupInfo = require('../controllers/groupInfo.js');
 const groupChat = require('../controllers/groupChat.js');
 const github = require('../controllers/github');
 const feedback = require('../controllers/feedback');
+const activity = require('../controllers/activity');
 
 router.prefix(`/${baseApi}`)
 
@@ -48,7 +49,7 @@ router.post('/pv_log', userInfo.pvLog) // pv日志
 router.get('/oauth', github)   // github授权
 router.get('/get_feedback', feedback.getFeedbackList)   // 留言反馈列表
 router.post('/submit_feedback', feedback.submitFeedback)   // 留言反馈列表
-
+router.get('/activity', activity.getActivityList)
 
 console.log("router");
 
